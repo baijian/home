@@ -2,6 +2,7 @@
 import os
 import sys
 import paramiko
+from termcolor import colored
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/lib/")
 from config import get_config
@@ -23,6 +24,13 @@ class Nas(object):
         ssh.connect(self.ip, 22, self.user, self.passwd)
         sftp = paramiko.SFTPClient.from_transport(ssh.get_transport())
         sftp = ssh.open_sftp()
+        remote_base_dir = self.base_dir + dir_name
+        try:
+            list_dir = sftp.listdir(remote_base_dir)
+            print colored("%s files exist in dir: %s" % (len(list_dir), remote_base_dir), 'green')
+        except:
+            print colored("dir:%s not exist, create it" % remote_base_dir, 'yellow')
+            sftp.mkdir(remote_base_dir, mode=511)
         i = 0
         for root, dirs, files in os.walk(dir):
             for name in files:
@@ -32,6 +40,6 @@ class Nas(object):
                 sftp.chown(remote_file, 1001, 1000)
                 sftp.chmod(remote_file, 416)   # 640
                 i += 1
-                print "copy file:%s to nas done" % name
-        print "%s files transport done!" % i
+                print colored("copy file:%s to nas done" % name, 'blue')
+        print colored("%s files transport done!" % i, 'green')
 
