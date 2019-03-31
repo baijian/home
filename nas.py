@@ -43,3 +43,12 @@ class Nas(object):
                 print colored("copy file:%s to nas done" % name, 'blue')
         print colored("%s files transport done!" % i, 'green')
 
+    def ls_dir(self, dir):
+        ssh = paramiko.SSHClient()
+        ssh.load_system_host_keys()
+        ssh.connect(self.ip, 22, self.user, self.passwd)
+        sftp = paramiko.SFTPClient.from_transport(ssh.get_transport())
+        sftp = ssh.open_sftp()
+        list_dir = sftp.listdir(self.base_dir)
+        for dir in list_dir:
+            print colored(dir, 'green')
