@@ -16,3 +16,9 @@ python >= 2.7
 # Functions
 
 
+# TODO
+
+1.增加nas同步至aliyun-oss功能
+2.增加自动计算nas里面文件md5功能
+3.对接微信公众号,可以通过公众号来进行同步消息提醒/告警消息提醒等
+4.开发GUI管理界面,适配Linux,Mac,Windows

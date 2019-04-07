@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+import os
 import sys
 from nas import Nas
+# current_path = os.path.abspath(os.path.dirname(__file__))
 
 
 def help_info():
@@ -18,6 +20,9 @@ if __name__ == "__main__":
         nas = Nas()
         if cmd == "upload":
             src_dir = sys.argv[3]
+            if not src_dir.startswith("/"):
+                print "source dir must start with /"
+                help_info()
             nas.copy_to_nas(src_dir)
         elif cmd == "ls":
             dir = sys.argv[3]

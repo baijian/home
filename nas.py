@@ -17,7 +17,7 @@ class Nas(object):
         self.passwd = get_config("nas")["passwd"]
 
     def copy_to_nas(self, dir):
-        dir_name_arr = dir.split("/")
+        dir_name_arr = dir.rstrip("/").split("/")
         dir_name = dir_name_arr[-1]
         ssh = paramiko.SSHClient()
         ssh.load_system_host_keys()
@@ -35,12 +35,15 @@ class Nas(object):
         for root, dirs, files in os.walk(dir):
             for name in files:
                 file_dir = os.path.join(root, name)
+                if name.startswith("."):
+                    # 隐藏文件不进行同步
+                    continue
                 remote_file = self.base_dir + dir_name + "/" + name
                 sftp.put(file_dir, remote_file)
                 sftp.chown(remote_file, 1001, 1000)
                 sftp.chmod(remote_file, 416)   # 640
                 i += 1
-                print colored("copy file:%s to nas done" % name, 'blue')
+                print colored("copy file:%s to nas:%s done" % (name, remote_file), 'blue')
         print colored("%s files transport done!" % i, 'green')
 
     def ls_dir(self, dir):
