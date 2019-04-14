@@ -4,7 +4,7 @@ import sys
 import paramiko
 from termcolor import colored
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/lib/")
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/common/")
 from config import get_config
 
 
