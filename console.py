@@ -7,6 +7,7 @@ from nas import Nas
 
 def help_info():
     print "console.py nas [upload|ls] {dir}"
+    print "console.py oss [upload] {dir}"
     exit(0)
 
 if __name__ == "__main__":
@@ -29,5 +30,7 @@ if __name__ == "__main__":
             nas.ls_dir(dir)
         else:
             help_info()
+    elif module == "oss":
+        pass
     else:
         help_info()

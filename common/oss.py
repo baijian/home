@@ -2,7 +2,7 @@
 import os
 import sys
 import oss2
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/common/")
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/../common/")
 from config import get_config
 
 
@@ -36,6 +36,9 @@ class OssUtil(object):
             print file_path + " upload to oss success!"
         else:
             print file_path + " exist in the oss, skip to upload!"
+
+    def upload(self, dir):
+        pass
 
 
 if __name__ == "__main__":
