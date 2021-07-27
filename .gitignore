@@ -103,3 +103,5 @@ ENV/
 .idea
 
 conf
+
+.DS_Store
